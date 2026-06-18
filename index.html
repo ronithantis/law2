@@ -134,7 +134,7 @@
             
             <div class="space-y-2 text-slate-300 text-sm">
                 <p class="font-bold text-courtGold">כיצד משחקים?</p>
-                <p>גררו את תיק החקירה לריבוע המתאים, או פשוט לחצו עליו ואז לחצו על הריבוע המתאים על המסך!</p>
+                <p>גררו את תיק החקירה לריבוע המתאים, או פשוט לחצו עליו (הוא יסומן בזהב) ואז לחצו על הריבוע המתאים על המסך!</p>
             </div>
 
             <button id="start-btn" class="bg-gradient-to-r from-courtGold-dark to-courtGold hover:from-courtGold hover:to-courtGold-light text-courtNavy-dark font-extrabold text-lg px-8 py-3.5 rounded-full shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 w-full sm:w-auto">
@@ -170,10 +170,670 @@
                 </div>
             </div>
 
-            <!-- Instruction Banner (Context-sensitive help) -->
+            <!-- Instruction Banner -->
             <p class="text-center text-xs md:text-sm text-slate-400">
                 💡 <span class="font-semibold">טיפ חקירה:</span> גררו את התיק שלמעלה אל אחד מארבעת בתי הדין שלמטה, או לחצו עליו ואז על היעד הרצוי.
             </p>
 
             <!-- Categorization Zones (Grid of 4 Courts) -->
-            <div class="
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-2">
+                <!-- Zone 1: חוקי ומוסרי -->
+                <div data-category="1" class="drop-zone bg-courtNavy-light/80 border border-courtNavy-lighter p-5 rounded-2xl flex flex-col items-center text-center justify-between min-h-[160px] cursor-pointer transition-all duration-300 hover:border-courtGold hover:scale-[1.02]">
+                    <div class="text-courtGold text-3xl mb-2"><i class="fas fa-balance-scale"></i></div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg text-white">⚖️ חוקי ומוסרי</h3>
+                        <p class="text-xs text-slate-400 mt-1 px-2">מעשים שהם גם חוקיים וגם הוגנים, המסייעים לקיום חברה צודקת.</p>
+                    </div>
+                    <span class="mt-3 text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full uppercase tracking-wider font-semibold">תקין והוגן</span>
+                </div>
+
+                <!-- Zone 2: חוקי ולא מוסרי -->
+                <div data-category="2" class="drop-zone bg-courtNavy-light/80 border border-courtNavy-lighter p-5 rounded-2xl flex flex-col items-center text-center justify-between min-h-[160px] cursor-pointer transition-all duration-300 hover:border-courtGold hover:scale-[1.02]">
+                    <div class="text-courtGold text-3xl mb-2"><i class="fas fa-book"></i></div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg text-white">⚖️ חוקי ולא מוסרי</h3>
+                        <p class="text-xs text-slate-400 mt-1 px-2">מעשים שמותרים על פי החוק היבש, אך אינם הוגנים, פוגעים או לא יפים.</p>
+                    </div>
+                    <span class="mt-3 text-[10px] bg-amber-500/20 text-amber-300 px-2 py-1 rounded-full uppercase tracking-wider font-semibold">לא ראוי</span>
+                </div>
+
+                <!-- Zone 3: לא חוקי ומוסרי -->
+                <div data-category="3" class="drop-zone bg-courtNavy-light/80 border border-courtNavy-lighter p-5 rounded-2xl flex flex-col items-center text-center justify-between min-h-[160px] cursor-pointer transition-all duration-300 hover:border-courtGold hover:scale-[1.02]">
+                    <div class="text-courtGold text-3xl mb-2"><i class="fas fa-heart"></i></div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg text-white">⚖️ לא חוקי ומוסרי</h3>
+                        <p class="text-xs text-slate-400 mt-1 px-2">מעשים שעוברים על החוק, אך נעשו מתוך רצון דחוף להציל או למנוע אסון.</p>
+                    </div>
+                    <span class="mt-3 text-[10px] bg-sky-500/20 text-sky-300 px-2 py-1 rounded-full uppercase tracking-wider font-semibold">למטרת טוב</span>
+                </div>
+
+                <!-- Zone 4: לא חוקי ולא מוסרי -->
+                <div data-category="4" class="drop-zone bg-courtNavy-light/80 border border-courtNavy-lighter p-5 rounded-2xl flex flex-col items-center text-center justify-between min-h-[160px] cursor-pointer transition-all duration-300 hover:border-courtGold hover:scale-[1.02]">
+                    <div class="text-courtGold text-3xl mb-2"><i class="fas fa-gavel"></i></div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg text-white">⚖️ לא חוקי ולא מוסרי</h3>
+                        <p class="text-xs text-slate-400 mt-1 px-2">מעשים הפוגעים בזולת או בחברה, ואסורים לחלוטין על פי חוק המדינה.</p>
+                    </div>
+                    <span class="mt-3 text-[10px] bg-red-500/20 text-red-300 px-2 py-1 rounded-full uppercase tracking-wider font-semibold">פסול ואסור</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Feedback Overlay / Investigation analysis Modal -->
+        <div id="feedback-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm transition-opacity duration-300">
+            <div class="bg-courtNavy-light border-2 border-courtGold w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-scaleIn">
+                <!-- Header of modal -->
+                <div id="feedback-header" class="p-4 text-center border-b border-courtNavy-lighter flex flex-col items-center gap-2">
+                    <span id="feedback-icon" class="text-4xl text-courtGold"></span>
+                    <h3 id="feedback-title" class="text-xl md:text-2xl font-extrabold text-white"></h3>
+                </div>
+                <!-- Content -->
+                <div class="p-6 space-y-4">
+                    <div class="bg-courtNavy/80 p-4 rounded-xl border border-courtNavy-lighter space-y-3">
+                        <p class="text-slate-200 text-sm md:text-base font-bold text-center" id="feedback-scenario"></p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <h4 class="text-courtGold text-xs md:text-sm font-bold tracking-widest uppercase flex items-center gap-2">
+                            <i class="fas fa-file-invoice"></i> ניתוח חוקר הדין המלא
+                        </h4>
+                        <div class="space-y-2 text-sm leading-relaxed text-slate-300" id="feedback-explanation">
+                            <!-- Explanation text inserted dynamically -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer action -->
+                <div class="p-4 bg-courtNavy/50 border-t border-courtNavy-lighter flex justify-center">
+                    <button id="next-btn" class="bg-courtGold hover:bg-courtGold-light text-courtNavy-dark font-extrabold px-6 py-2.5 rounded-full shadow-md transition-all duration-300 hover:scale-105">
+                        המשך לתיק הבא <i class="fas fa-arrow-left mr-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Screen (Hidden by default) -->
+        <section id="end-screen" class="hidden w-full max-w-4xl bg-courtNavy-light/95 border-2 border-courtGold p-6 md:p-10 rounded-2xl shadow-2xl text-center space-y-6">
+            <div class="text-courtGold text-6xl my-2">
+                <i class="fas fa-trophy animate-bounce"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white">🏆 חקירה הושלמה בהצלחה</h2>
+            
+            <div class="p-4 md:p-6 bg-courtNavy/80 border border-courtNavy-lighter rounded-2xl max-w-md mx-auto">
+                <p class="text-slate-400 text-sm uppercase font-bold tracking-widest">ציון סופי במערכת המשפט</p>
+                <p class="text-5xl md:text-6xl font-extrabold text-courtGold mt-2" id="final-score">0 / 100</p>
+                <p class="text-xs text-slate-500 mt-2">פתרתם את כל 20 הדילמות בהצלחה!</p>
+            </div>
+
+            <!-- Educative quote from prompt -->
+            <div class="border-r-4 border-courtGold bg-courtNavy/40 p-4 rounded-l-xl text-right max-w-2xl mx-auto space-y-2 text-slate-200 leading-relaxed text-sm md:text-base">
+                <p class="font-semibold text-courtGold">צוות חקירות יקר,</p>
+                <p class="italic">"היום גיליתם שלא תמיד החוק והצדק הם אותו דבר.</p>
+                <p class="italic">החוק קובע את הכללים של החברה.</p>
+                <p class="italic">המוסר עוזר לנו לחשוב מה נכון והוגן לעשות.</p>
+                <p class="italic">בחברה טובה אנחנו זקוקים גם לחוקים וגם לערכים."</p>
+            </div>
+
+            <!-- Review list of cases -->
+            <div class="space-y-3 text-right">
+                <h3 class="text-courtGold font-bold text-base flex items-center gap-2">
+                    <i class="fas fa-history"></i> סיכום תיקי החקירה שלכם:
+                </h3>
+                <div id="cases-summary-list" class="max-h-[220px] overflow-y-auto space-y-2 p-2 border border-courtNavy-lighter rounded-xl bg-courtNavy/50">
+                    <!-- Dynamic review items -->
+                </div>
+            </div>
+
+            <button id="restart-btn" class="bg-courtNavy-lighter hover:bg-courtGold hover:text-courtNavy-dark text-courtGold border border-courtGold font-extrabold px-8 py-3 rounded-full transition-all duration-300 hover:scale-105">
+                התחל חקירה חדשה <i class="fas fa-undo mr-1"></i>
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-[10px] md:text-xs text-slate-500 my-2">
+        <p>© קורס "חוק וצדק" • פותח במיוחד עבור תלמידי כיתות ה'-ו' באגף החינוך והמשפט.</p>
+    </footer>
+
+    <!-- Game Script (Vanilla JS for ultra-stability and high speed) -->
+    <script>
+        // Dilemma Data Base
+        const dilemmas = [
+            {
+                id: 1,
+                text: "תלמיד מחזיר ארנק שמצא בחצר.",
+                answer: 1, // חוקי ומוסרי
+                explanation: "החזרת רכוש אבוד היא גם חוקית וגם הוגנת ומצביעה על יושרה מוסרית גבוהה.",
+                lawSide: "על פי החוק (חוק השבת אבידה), חובה לנסות ולהשיב רכוש אבוד לבעליו.",
+                moralSide: "המוסר מלמד אותנו לא לקחת רכוש שאינו שייך לנו ולעזור לזולת לקבל את מה שאיבד."
+            },
+            {
+                id: 2,
+                text: "נהג עוצר ברמזור אדום.",
+                answer: 1, // חוקי ומוסרי
+                explanation: "החוק שומר על חיי אדם והציות לו מונע פגיעה קשה באנשים אחרים בכביש.",
+                lawSide: "פקודת התעבורה מחייבת עצירה מוחלטת באור אדום.",
+                moralSide: "המוסר מחייב אותנו לגלות אחריות, להגן על חיים ולמנוע תאונות ופגיעה באחר."
+            },
+            {
+                id: 3,
+                text: "ילדה מפנה מקום לקשיש באוטובוס.",
+                answer: 1, // חוקי ומוסרי
+                explanation: "אין חובה חוקית ברוב המקרים אך זהו מעשה מוסרי וראוי ביותר שמסייע למי שזקוק לעזרה.",
+                lawSide: "אין חוק מפורש המטיל קנס על אי-פינוי מקום, אך המעשה חוקי ומותר לחלוטין.",
+                moralSide: "זהו ערך של כבוד הדדי, עזרה לזולת ורגישות לאוכלוסייה מבוגרת שזקוקה לסיוע פיזי."
+            },
+            {
+                id: 4,
+                text: "תלמיד מוסר למורה מידע על חרם שפוגע בילד.",
+                answer: 1, // חוקי ומוסרי
+                explanation: "שבירת שתיקה מול עוולה חברתית פוגענית היא מעשה מוסרי ששומר על בריאותם ונפשם של חברים.",
+                lawSide: "תקנון בית הספר ומדיניות המשרד מעודדים דיווח על פגיעה, ואין כאן מעשה של עבירה.",
+                moralSide: "חברות אמיתית ומוסר דורשים מאיתנו לא לעמוד מן הצד כאשר פוגעים בילד אחר."
+            },
+            {
+                id: 5,
+                text: "אדם משלם עבור כל המוצרים שקנה.",
+                answer: 1, // חוקי ומוסרי
+                explanation: "תשלום הוגן על סחורה שומר על כללי החברה, חוקי המסחר והמוסר הבסיסי בין בני אדם.",
+                lawSide: "אי-תשלום נחשב לגניבה על פי חוק העונשין.",
+                moralSide: "הגינות פיננסית פירושה לכבד את עבודתם של בעלי העסקים ולא לצרוך משהו שלא שילמנו עליו."
+            },
+            {
+                id: 6,
+                text: "ילד צוחק על חברו אך לא עובר על תקנון כלשהו.",
+                answer: 2, // חוקי ולא מוסרי
+                explanation: "לא כל התנהגות מרושעת או פוגענית מוגדרת כעבירה פלילית בחוק היבש, אך היא בהחלט פסולה מוסרית.",
+                lawSide: "מותר מבחינה חוקית להביע דעה או לצחוק כל עוד זה לא הגיע לרמת לשון הרע פלילית או הטרדה.",
+                moralSide: "הצקה לעג ופגיעה ברגשות הם מעשים חסרי אמפתיה המנוגדים לצדק חברתי ולחברות הוגנת."
+            },
+            {
+                id: 7,
+                text: "תלמיד מתעלם מילד בודד בהפסקה.",
+                answer: 2, // חוקי ולא מוסרי
+                explanation: "אין חוק שמחייב לשחק עם כולם, אך התעלמות ממישהו שזקוק לחברה ומרגיש עצוב היא מעשה לא מוסרי.",
+                lawSide: "חופש הבחירה של כל אדם קובע עם מי לדבר ועם מי לשחק. אין פה שום הפרת חוק.",
+                moralSide: "ראיית האחר וסולידריות אנושית דורשות מאיתנו להושיט יד ולא להשאיר ילדים בבדידותם."
+            },
+            {
+                id: 8,
+                text: "אדם מבטיח לעזור לחבר ולא מגיע.",
+                answer: 2, // חוקי ולא מוסרי
+                explanation: "להפר הבטחה לחבר זה חוקי (לא נחתם חוזה משפטי) אך זה פוגע באמון ובערך המוסרי של מילה והבטחה.",
+                lawSide: "הבטחות חבריות אינן חוזים משפטיים אכיפים בבית משפט.",
+                moralSide: "אמינות ויושרה הן הבסיס לקשר אנושי בריא. הפרת הבטחה היא פגיעה ישירה באמון."
+            },
+            {
+                id: 9,
+                text: "ילדה מפיצה שמועה מעליבה שלא הוכחה.",
+                answer: 2, // חוקי ולא מוסרי
+                explanation: "דיבור רכילותי או הפצת שמועה שטרם פוגעת ברמת 'חוק לשון הרע' הוא חוקי אך פוגע מאוד באחר ולא מוסרי.",
+                lawSide: "לא כל רכילות מגיעה לכדי תביעה פלילית או אזרחית, ולכן לעיתים היא נותרת חוקית יבשה.",
+                moralSide: "פגיעה בשמו הטוב של אדם ללא הוכחה ובכוונה להעליב היא מעשה פסול ומרושע."
+            },
+            {
+                id: 10,
+                text: "ילד זורק אוכל תקין לפח במקום לתרום.",
+                answer: 2, // חוקי ולא מוסרי
+                explanation: "זריקת מזון היא חוקית כי המזון הוא רכושו הפרטי, אך לא מוסרי לבזבז אוכל כשיש אנשים רעבים.",
+                lawSide: "מותר לאדם לעשות ברכושו ובמזונו כרצונו, לרבות השלכתו לאשפה ביתית.",
+                moralSide: "בזבוז משאבים והתעלמות מצרכי רעבים הם מחדל מוסרי של חוסר סולידריות וערבות חברתית."
+            },
+            {
+                id: 11,
+                text: "תלמיד פורץ לחדר המורים כדי להביא תרופה לילד שהתמוטט.",
+                answer: 3, // לא חוקי ומוסרי
+                explanation: "המעשה מוגדר כפריצה (עבירה על החוק), אך המטרה העליונה הייתה הצלת חיי אדם מיידית.",
+                lawSide: "פריצה לחדר נעול ללא סמכות היא עבירה פלילית של השגת גבול ונזק לרכוש.",
+                moralSide: "הצלת חיים קודמת לשמירה על כללי הרכוש והסדר היבש. המעשה נעשה מתוך מניע מוסרי נעלה ביותר."
+            },
+            {
+                id: 12,
+                text: "אדם שובר חלון כדי לחלץ ילד מרכב נעול.",
+                answer: 3, // לא חוקי ומוסרי
+                explanation: "גרימת נזק לרכוש (שבירת חלון) היא עבירה על החוק, אך הצלת חיי הילד שנלכד בחום היא חובה מוסרית עליונה.",
+                lawSide: "החוק אוסר על השחתת רכוש של אחר, אך במצבי חירום קיימת הגנה בחוק הקרויה 'הגנת הצורך'.",
+                moralSide: "חיי אדם וביטחונם של ילדים חשובים לאין שיעור משווי של שמשת רכב."
+            },
+            {
+                id: 13,
+                text: "ילדה מורידה תוכנת עזר אסורה כדי לסייע לאחיה הנכה.",
+                answer: 3, // לא חוקי ומוסרי
+                explanation: "הורדה פיראטית או שימוש בתוכנה ללא רישיון הם עבירה על החוק, אך המטרה של סיוע לאח בעל מוגבלות היא מוסרית.",
+                lawSide: "חוק זכויות יוצרים אוסר על הורדה, פריצה או שימוש בתוכנות שלא כדין.",
+                moralSide: "הרצון להקל על סבלו או מוגבלותו של אח הוא מעשה אלטרואיסטי ומוסרי המונע מחמלה ועזרה הדדית."
+            },
+            {
+                id: 14,
+                text: "ילד נכנס לשטח אסור כדי להציל כלב פצוע.",
+                answer: 3, // לא חוקי ומוסרי
+                explanation: "הסגת גבול או כניסה לשטח צבאי/פרטי אסור היא עבירה, אך הצלת בעל חיים חסר ישע פצוע היא מוסרית מאוד.",
+                lawSide: "חוקי השגת הגבול אוסרים כניסה לכל מתחם פרטי ללא אישור בעליו.",
+                moralSide: "מניעת צער בעלי חיים והצלת יצור חי מכאב ומוות הן ערכים מוסריים חשובים."
+            },
+            {
+                id: 15,
+                text: "תלמיד לוקח ללא רשות מפתח כדי לעזור לחבר שנתקע.",
+                answer: 3, // לא חוקי ומוסרי
+                explanation: "לקיחת חפץ ללא רשות היא טכנית עבירה, אך המעשה נועד לסייע לחבר במצוקה מיידית.",
+                lawSide: "נטילת רכוש או מפתחות ללא רשות הבעלים מוגדרת בחוק כשימוש ללא היתר או גניבה זמנית.",
+                moralSide: "חברות נאמנה ומתן סיוע לחבר נעול או פגוע דוחקים לעיתים הצידה את חוקי הרשות היבשים לזמן קצר."
+            },
+            {
+                id: 16,
+                text: "תלמיד מעתיק במבחן.",
+                answer: 4, // לא חוקי ולא מוסרי
+                explanation: "רמאות במבחן פוגעת ביושרה, מפרה את תקנון בית הספר (שהוא החוק במרחב הלימודי) ואינה הוגנת כלפי האחרים.",
+                lawSide: "זהו מעשה האסור על פי תקנוני משרד החינוך הנושאים תוקף מנהלי מחייב.",
+                moralSide: "העתקה היא גניבת דעת. היא יוצרת מצג שווא של ידע, פוגעת בשוויון ההזדמנויות ובאמון המערכת והחברים."
+            },
+            {
+                id: 17,
+                text: "ילד גונב כסף מחבר.",
+                answer: 4, // לא חוקי ולא מוסרי
+                explanation: "גניבה פוגעת קשות בזולת, ברכושו ובביטחונו, ומנוגדת באופן מוחלט הן לחוק המדינה והן לצדק ולמוסר האנושי.",
+                lawSide: "חוק העונשין מגדיר גניבה כעבירה פלילית חמורה שעונשה מאסר.",
+                moralSide: "גזילת רכוש שנרכש בעמל של אחר היא אקט אנוכי הפוגע באמון החברתי ובחמלה הבסיסית."
+            },
+            {
+                id: 18,
+                text: "אדם משחית רכוש ציבורי.",
+                answer: 4, // לא חוקי ולא מוסרי
+                explanation: "השחתת רכוש של כולנו מנוגדת לחוק ופוגעת בחברה ובמרחב המשותף לכולנו.",
+                lawSide: "השחתת פני מקרקעין או ונדליזם היא עבירה פלילית נושאת עונשין וקנסות.",
+                moralSide: "המרחב הציבורי שייך לכולם. השחתתו מבטאת חוסר כבוד חברתי, אנוכיות והרס מכוון של יופי ושימושיות."
+            },
+            {
+                id: 19,
+                text: "תלמיד מפיץ סרטון מביך של חבר.",
+                answer: 4, // לא חוקי ולא מוסרי
+                explanation: "פגיעה קשה בפרטיות, השפלת חבר ברשת והפצת חומרים מביכים הן עבירה פלילית ומעשה אכזרי ולא מוסרי ביותר.",
+                lawSide: "הפצת תמונות או סרטונים מביכים ללא הסכמה אסורה על פי 'חוק הסרטונים' (חוק למניעת הטרדה מינית והגנת הפרטיות).",
+                moralSide: "הלבנת פני חבר ברבים גורמת לסבל נפשי עצום ומנוגדת לכל כללי הערבות ההדדית והאנושיות."
+            },
+            {
+                id: 20,
+                text: "ילד עוקף בתור ודוחף ילדים אחרים.",
+                answer: 4, // לא חוקי ולא מוסרי
+                explanation: "אלימות פיזית קלה, דחיפות והפרת הסדר ההוגן של התור הן עבירות ואקטים פסולים ולא הוגנים.",
+                lawSide: "דחיפה פיזית ותקיפה קלה אסורות לחלוטין על פי חוקי מניעת אלימות ותקיפה.",
+                moralSide: "התעלמות מזכויות הזולת, פגיעה פיזית וזלזול בסדר ההוגן מעידים על חוסר מוסריות ואנוכיות קיצונית."
+            }
+        ];
+
+        // App State
+        let currentDilemmaIndex = 0;
+        let score = 0;
+        let playerAnswers = []; // Store results for the final screen
+        let isSoundOn = true;
+        let isCardSelected = false; // Mobile-friendly click selection state
+
+        // Safe Audio Context (Lazy loading prevents script blockages on load)
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.warn("Web Audio API was blocked or is not supported", e);
+                }
+            }
+            return audioCtx;
+        }
+        
+        function playSound(type) {
+            if (!isSoundOn) return;
+            
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            // Resume Context if suspended (autoplay policies compliance)
+            if (ctx.state === 'suspended') {
+                ctx.resume();
+            }
+
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            if (type === 'correct') {
+                const now = ctx.currentTime;
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
+                
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+                
+                osc.start(now);
+                osc.stop(now + 0.45);
+            } else if (type === 'wrong') {
+                const now = ctx.currentTime;
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.3);
+                
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'click') {
+                const now = ctx.currentTime;
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(300, now + 0.05);
+                
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+                
+                osc.start(now);
+                osc.stop(now + 0.06);
+            } else if (type === 'victory') {
+                const now = ctx.currentTime;
+                osc.type = 'triangle';
+                
+                osc.frequency.setValueAtTime(261.63, now); // C4
+                osc.frequency.setValueAtTime(329.63, now + 0.1); // E4
+                osc.frequency.setValueAtTime(392.00, now + 0.2); // G4
+                osc.frequency.setValueAtTime(523.25, now + 0.3); // C5
+                osc.frequency.setValueAtTime(659.25, now + 0.4); // E5
+                osc.frequency.setValueAtTime(783.99, now + 0.5); // G5
+                osc.frequency.setValueAtTime(1046.50, now + 0.6); // C6
+                
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.setValueAtTime(0.2, now + 0.6);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+                
+                osc.start(now);
+                osc.stop(now + 1.2);
+            }
+        }
+
+        // DOM Elements
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const endScreen = document.getElementById('end-screen');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const cardContainer = document.getElementById('card-container');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreVal = document.getElementById('score-val');
+        const feedbackModal = document.getElementById('feedback-modal');
+        const feedbackHeader = document.getElementById('feedback-header');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackScenario = document.getElementById('feedback-scenario');
+        const feedbackExplanation = document.getElementById('feedback-explanation');
+        const finalScore = document.getElementById('final-score');
+        const casesSummaryList = document.getElementById('cases-summary-list');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        const toggleSoundBtn = document.getElementById('toggle-sound');
+        const soundIcon = document.getElementById('sound-icon');
+
+        // Init App Event Listeners
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', restartGame);
+        nextBtn.addEventListener('click', handleNextCard);
+        
+        toggleSoundBtn.addEventListener('click', () => {
+            isSoundOn = !isSoundOn;
+            if (isSoundOn) {
+                soundIcon.className = "fas fa-volume-up";
+                playSound('click');
+            } else {
+                soundIcon.className = "fas fa-volume-mute";
+            }
+        });
+
+        // Initialize drop & click events on targets
+        dropZones.forEach(zone => {
+            // Dragover visual feedback
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('drop-hover');
+            });
+
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('drop-hover');
+            });
+
+            // HTML5 Drop Action
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drop-hover');
+                const catId = parseInt(zone.getAttribute('data-category'));
+                submitAnswer(catId);
+            });
+
+            // Smartboard & Touch Click Action
+            zone.addEventListener('click', () => {
+                const catId = parseInt(zone.getAttribute('data-category'));
+                submitAnswer(catId);
+            });
+        });
+
+        function startGame() {
+            playSound('click');
+            welcomeScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            loadCard();
+        }
+
+        function restartGame() {
+            playSound('click');
+            currentDilemmaIndex = 0;
+            score = 0;
+            playerAnswers = [];
+            scoreVal.textContent = "000";
+            endScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            loadCard();
+        }
+
+        function loadCard() {
+            if (currentDilemmaIndex >= dilemmas.length) {
+                showEndScreen();
+                return;
+            }
+
+            const currentDilemma = dilemmas[currentDilemmaIndex];
+            isCardSelected = false; // Reset mobile selection on card load
+            
+            // Update Dashboard HUD
+            progressText.textContent = `תיק ${currentDilemmaIndex + 1} מתוך ${dilemmas.length}`;
+            const percentage = ((currentDilemmaIndex + 1) / dilemmas.length) * 100;
+            progressBar.style.width = `${percentage}%`;
+
+            // Reset selected class on drop zones
+            dropZones.forEach(z => {
+                z.classList.remove('drop-hover', 'animate-pulse', 'border-courtGold/40');
+            });
+
+            // Generate card HTML
+            cardContainer.innerHTML = `
+                <div id="dilemma-card" draggable="true" 
+                     class="bg-courtNavy-light border-2 border-courtGold/70 rounded-2xl p-6 md:p-8 text-center cursor-grab active:cursor-grabbing transition-all duration-300 gold-glow hover:border-courtGold relative overflow-hidden select-none">
+                    
+                    <!-- Decorative Badge -->
+                    <div class="absolute -top-3 -right-3 bg-courtGold text-courtNavy-dark font-extrabold text-[10px] uppercase px-4 py-2 rounded-bl-xl rotate-6 shadow-md border-b border-l border-courtGold-dark">
+                        סיווג ראיות
+                    </div>
+
+                    <div class="text-courtGold text-sm font-bold tracking-wider mb-2 flex items-center justify-center gap-1.5">
+                        <i class="fas fa-folder-open"></i> תיק חקירה מספר ${currentDilemma.id}
+                    </div>
+                    
+                    <p class="text-lg md:text-xl font-extrabold text-white my-4 leading-relaxed px-2">
+                        "${currentDilemma.text}"
+                    </p>
+
+                    <div class="h-[1px] bg-gradient-to-r from-transparent via-courtNavy-lighter to-transparent my-4"></div>
+
+                    <div class="flex flex-col gap-1">
+                        <p class="text-[11px] text-courtGold font-semibold">
+                            מגע בלוח חכם או בנייד? לחצו כאן לבחירה, ואז לחצו על אזור היעד המתאים למטה!
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            // Setup HTML5 Drag & Drop & Selection Listeners
+            const card = document.getElementById('dilemma-card');
+            
+            card.addEventListener('dragstart', (e) => {
+                card.classList.add('active-drag');
+                e.dataTransfer.setData('text/plain', currentDilemma.id);
+            });
+
+            card.addEventListener('dragend', () => {
+                card.classList.remove('active-drag');
+            });
+
+            // Visual Click Selection logic for smartboards
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                playSound('click');
+                isCardSelected = !isCardSelected;
+
+                if (isCardSelected) {
+                    card.classList.add('ring-4', 'ring-courtGold', 'border-courtGold-light');
+                    // Spark options below to notify users where to click next
+                    dropZones.forEach(z => {
+                        z.classList.add('animate-pulse', 'border-courtGold/40');
+                    });
+                } else {
+                    card.classList.remove('ring-4', 'ring-courtGold', 'border-courtGold-light');
+                    dropZones.forEach(z => {
+                        z.classList.remove('animate-pulse', 'border-courtGold/40');
+                    });
+                }
+            });
+        }
+
+        function submitAnswer(chosenCategory) {
+            if (currentDilemmaIndex >= dilemmas.length) return;
+            
+            const currentDilemma = dilemmas[currentDilemmaIndex];
+            const isCorrect = (chosenCategory === currentDilemma.answer);
+            
+            let pointsGained = 0;
+            if (isCorrect) {
+                pointsGained = 5;
+                score += pointsGained;
+                scoreVal.textContent = String(score).padStart(3, '0');
+                playSound('correct');
+            } else {
+                playSound('wrong');
+            }
+
+            // Save record for end-game report
+            playerAnswers.push({
+                scenario: currentDilemma.text,
+                chosen: chosenCategory,
+                correct: currentDilemma.answer,
+                isCorrect: isCorrect,
+                explanation: currentDilemma.explanation
+            });
+
+            // Display Feedback Dialog
+            showFeedbackModal(isCorrect, currentDilemma);
+        }
+
+        function showFeedbackModal(isCorrect, dilemma) {
+            // Stylize header based on result
+            if (isCorrect) {
+                feedbackHeader.className = "p-4 text-center border-b border-courtNavy-lighter flex flex-col items-center gap-1.5 bg-emerald-950/40 text-emerald-400";
+                feedbackIcon.innerHTML = `<i class="fas fa-check-circle text-emerald-400 animate-bounce"></i>`;
+                feedbackTitle.textContent = "פסק הדין: תשובה נכונה!";
+                feedbackTitle.className = "text-xl md:text-2xl font-extrabold text-emerald-400";
+            } else {
+                feedbackHeader.className = "p-4 text-center border-b border-courtNavy-lighter flex flex-col items-center gap-1.5 bg-red-950/40 text-red-400";
+                feedbackIcon.innerHTML = `<i class="fas fa-times-circle text-red-400"></i>`;
+                feedbackTitle.textContent = "פסק הדין: טעות בזיהוי!";
+                feedbackTitle.className = "text-xl md:text-2xl font-extrabold text-red-400";
+            }
+
+            feedbackScenario.textContent = `"${dilemma.text}"`;
+            
+            // Build dual-layered analysis
+            feedbackExplanation.innerHTML = `
+                <div class="space-y-3">
+                    <p class="text-sm md:text-base text-slate-200">
+                        <strong class="text-courtGold">החלטת בית הדין:</strong> ${dilemma.explanation}
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 pt-3 border-t border-courtNavy-lighter text-xs">
+                        <div class="bg-courtNavy/60 p-3 rounded-lg border border-courtNavy-lighter">
+                            <span class="font-bold text-courtGold block mb-1">⚖️ היבט החוק המדיני:</span>
+                            <span class="text-slate-300 leading-relaxed">${dilemma.lawSide}</span>
+                        </div>
+                        <div class="bg-courtNavy/60 p-3 rounded-lg border border-courtNavy-lighter">
+                            <span class="font-bold text-courtGold block mb-1">❤️ היבט המוסר והצדק:</span>
+                            <span class="text-slate-300 leading-relaxed">${dilemma.moralSide}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            feedbackModal.classList.remove('hidden');
+        }
+
+        function handleNextCard() {
+            playSound('click');
+            feedbackModal.classList.add('hidden');
+            currentDilemmaIndex++;
+            loadCard();
+        }
+
+        function getCategoryLabel(id) {
+            switch(id) {
+                case 1: return "חוקי ומוסרי";
+                case 2: return "חוקי ולא מוסרי";
+                case 3: return "לא חוקי ומוסרי";
+                case 4: return "לא חוקי ולא מוסרי";
+                default: return "";
+            }
+        }
+
+        function showEndScreen() {
+            playSound('victory');
+            gameScreen.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            
+            // Render Final Score
+            finalScore.textContent = `${score} / 100`;
+
+            // Build detailed recap
+            casesSummaryList.innerHTML = '';
+            playerAnswers.forEach((ans, idx) => {
+                const item = document.createElement('div');
+                item.className = `p-3 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-2 border text-xs md:text-sm ${
+                    ans.isCorrect ? 'bg-emerald-950/20 border-emerald-900/40' : 'bg-red-950/20 border-red-900/40'
+                }`;
+
+                item.innerHTML = `
+                    <div class="space-y-1 text-right">
+                        <p class="font-semibold text-slate-100">${idx+1}. "${ans.scenario}"</p>
+                        <p class="text-[11px] text-slate-400">
+                            סווג כ: <span class="font-bold text-courtGold">${getCategoryLabel(ans.correct)}</span> • 
+                            התשובה שלכם: <span class="font-bold ${ans.isCorrect ? 'text-emerald-400' : 'text-red-400'}">${getCategoryLabel(ans.chosen)}</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 justify-end">
+                        <span class="text-[11px] font-bold ${ans.isCorrect ? 'text-emerald-400' : 'text-red-400'}">
+                            ${ans.isCorrect ? '<i class="fas fa-check mr-1"></i>נכון' : '<i class="fas fa-times mr-1"></i>שגוי'}
+                        </span>
+                    </div>
+                `;
+                casesSummaryList.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>
